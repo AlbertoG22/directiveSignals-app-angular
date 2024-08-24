@@ -47,17 +47,20 @@ export class CustomLabelDirective implements OnInit {
     console.log(this._errors);
 
     if( errors.includes('required') ) {
-      this.htmlElement.nativeElement.innerText = 'Este campo es requerido';
+      this.htmlElement.nativeElement.innerText = 'Este campo es requerido.';
       return;
     }
 
     if( errors.includes('minlength') ) {
-      this.htmlElement.nativeElement.innerText = `Longitud requerida ${this._errors['minlength'].requiredLength} caracteres. Actual: ${this._errors['minlength'].actualLength}`;
+      const min = this._errors!['minlength']['requiredLength'];
+      const current = this._errors!['minlength']['actualLength'];
+      
+      this.htmlElement.nativeElement.innerText = `Mínimo ${ current }/${ min } caracteres.`;
       return;
     }
 
     if( errors.includes('email') ) {
-      this.htmlElement.nativeElement.innerText = 'Este campo debe ser email';
+      this.htmlElement.nativeElement.innerText = 'No tiene formato de correo.';
       return;
     }
   }
